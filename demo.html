@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo | ProcureMatch AI</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <nav class="bg-white fixed w-full z-10 top-0 left-0 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold text-gray-800">ProcureMatch AI</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-gray-800">Home</a>
+                <a href="demo.html" class="text-gray-600 hover:text-gray-800">Demo</a>
+                <a href="about.html" class="text-gray-600 hover:text-gray-800">Architecture</a>
+                <a href="documentation.html" class="text-gray-600 hover:text-gray-800">Documentation</a>
+                <a href="demo.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Try Demo</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 hover:text-gray-800">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+            <a href="index.html" class="block px-4 py-2 hover:bg-gray-100">Home</a>
+            <a href="demo.html" class="block px-4 py-2 hover:bg-gray-100">Demo</a>
+            <a href="about.html" class="block px-4 py-2 hover:bg-gray-100">Architecture</a>
+            <a href="documentation.html" class="block px-4 py-2 hover:bg-gray-100">Documentation</a>
+            <a href="demo.html" class="block px-4 py-2 mt-2 text-center bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Try Demo</a>
+        </div>
+    </nav>
+
+    <main class="pt-24 container mx-auto px-4 py-12">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">AI Matching Tool Demo</h1>
+        
+        <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6">
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2" for="po-qty">PO Quantity</label>
+                    <input type="number" id="po-qty" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2" for="grn-qty">GRN Quantity</label>
+                    <input type="number" id="grn-qty" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2" for="invoice-qty">Invoice Quantity</label>
+                    <input type="number" id="invoice-qty" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-4 mb-8">
+                <button id="predict-btn" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition">Predict Match</button>
+                <button id="clear-btn" class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-300 transition">Clear</button>
+            </div>
+
+            <div id="result-container" class="hidden">
+                <h2 class="text-xl font-semibold mb-4 text-center">Prediction Result</h2>
+                <div id="result-card" class="border rounded-lg p-6 text-center">
+                    <div id="status" class="text-2xl font-bold mb-2"></div>
+                    <div id="confidence" class="text-lg"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">ProcureMatch AI</h3>
+                    <p class="text-gray-400">Smart AI solution for procurement document verification.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-400 hover:text-white">Home</a>
+                        <a href="demo.html" class="block text-gray-400 hover:text-white">Demo</a>
+                        <a href="about.html" class="block text-gray-400 hover:text-white">Architecture</a>
+                        <a href="documentation.html" class="block text-gray-400 hover:text-white">Documentation</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <div class="space-y-2">
+                        <a href="#" class="block text-gray-400 hover:text-white">GitHub</a>
+                        <a href="#" class="block text-gray-400 hover:text-white">API Docs</a>
+                        <a href="#" class="block text-gray-400 hover:text-white">Case Studies</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-feather="twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-feather="github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-feather="linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ProcureMatch AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        // Mobile menu toggle
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuButton?.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Demo Prediction Logic
+        const predictBtn = document.getElementById('predict-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const resultContainer = document.getElementById('result-container');
+        const statusEl = document.getElementById('status');
+        const confidenceEl = document.getElementById('confidence');
+        const resultCard = document.getElementById('result-card');
+
+        predictBtn.addEventListener('click', async function() {
+            const poQty = document.getElementById('po-qty').value;
+            const grnQty = document.getElementById('grn-qty').value;
+            const invoiceQty = document.getElementById('invoice-qty').value;
+
+            if (!poQty || !grnQty || !invoiceQty) {
+                alert('Please fill in all quantity fields');
+                return;
+            }
+
+            predictBtn.disabled = true;
+            predictBtn.innerHTML = 'Predicting...';
+
+            try {
+                const payload = {
+                    PO_Qty: parseInt(poQty),
+                    GRN_Qty: parseInt(grnQty),
+                    Invoice_Qty: parseInt(invoiceQty)
+                };
+
+                const response = await fetch("http://localhost:8000/predict", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                resultContainer.classList.remove('hidden');
+                if (data.status === 'MATCH') {
+                    statusEl.textContent = 'MATCH';
+                    statusEl.classList.add('text-green-600');
+                    statusEl.classList.remove('text-red-600');
+                    resultCard.classList.add('border-green-200', 'bg-green-50');
+                    resultCard.classList.remove('border-red-200', 'bg-red-50');
+                } else {
+                    statusEl.textContent = 'MISMATCH';
+                    statusEl.classList.add('text-red-600');
+                    statusEl.classList.remove('text-green-600');
+                    resultCard.classList.add('border-red-200', 'bg-red-50');
+                    resultCard.classList.remove('border-green-200', 'bg-green-50');
+                }
+                confidenceEl.textContent = `Confidence: ${(data.confidence * 100).toFixed(2)}%`;
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error connecting to the API');
+            } finally {
+                predictBtn.disabled = false;
+                predictBtn.innerHTML = 'Predict Match';
+            }
+        });
+
+        clearBtn.addEventListener('click', function() {
+            document.getElementById('po-qty').value = '';
+            document.getElementById('grn-qty').value = '';
+            document.getElementById('invoice-qty').value = '';
+            resultContainer.classList.add('hidden');
+            statusEl.textContent = '';
+            confidenceEl.textContent = '';
+            statusEl.className = 'text-2xl font-bold mb-2';
+            resultCard.className = 'border rounded-lg p-6 text-center';
+        });
+    </script>
+</body>
+</html>

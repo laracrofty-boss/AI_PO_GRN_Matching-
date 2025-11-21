@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture | ProcureMatch AI</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <nav class="bg-white fixed w-full z-10 top-0 left-0 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold text-gray-800">ProcureMatch AI</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-gray-800">Home</a>
+                <a href="demo.html" class="text-gray-600 hover:text-gray-800">Demo</a>
+                <a href="about.html" class="text-gray-600 hover:text-gray-800">Architecture</a>
+                <a href="documentation.html" class="text-gray-600 hover:text-gray-800">Documentation</a>
+                <a href="demo.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Try Demo</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 hover:text-gray-800">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+            <a href="index.html" class="block px-4 py-2 hover:bg-gray-100">Home</a>
+            <a href="demo.html" class="block px-4 py-2 hover:bg-gray-100">Demo</a>
+            <a href="about.html" class="block px-4 py-2 hover:bg-gray-100">Architecture</a>
+            <a href="documentation.html" class="block px-4 py-2 hover:bg-gray-100">Documentation</a>
+            <a href="demo.html" class="block px-4 py-2 mt-2 text-center bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Try Demo</a>
+        </div>
+    </nav>
+
+    <main class="pt-24 container mx-auto px-4 py-12">
+        <h1 class="text-3xl font-bold text-center mb-12 text-gray-800">System Architecture</h1>
+        
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 mb-8">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">How It Works</h2>
+                <p class="text-gray-600 mb-6">
+                    ProcureMatch AI uses a sophisticated machine learning pipeline to analyze procurement documents and detect discrepancies between PO, GRN, and Invoice quantities.
+                </p>
+                
+                <div class="relative">
+                    <!-- Architecture Diagram -->
+                    <div class="flex flex-col items-center">
+                        <!-- Step 1 -->
+                        <div class="flex items-center mb-8 w-full">
+                            <div class="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mr-4 shrink-0">
+                                <i data-feather="user" class="text-blue-600"></i>
+                            </div>
+                            <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm flex-grow">
+                                <h3 class="font-semibold text-gray-800">User Input</h3>
+                                <p class="text-gray-600">User submits PO, GRN and Invoice quantities</p>
+                            </div>
+                            <div class="ml-4 text-gray-400 shrink-0">
+                                <i data-feather="arrow-right" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div class="flex items-center mb-8 w-full">
+                            <div class="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mr-4 shrink-0">
+                                <i data-feather="send" class="text-blue-600"></i>
+                            </div>
+                            <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm flex-grow">
+                                <h3 class="font-semibold text-gray-800">Backend API</h3>
+                                <p class="text-gray-600">Processes the input data and prepares for model prediction</p>
+                            </div>
+                            <div class="ml-4 text-gray-400 shrink-0">
+                                <i data-feather="arrow-right" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                        <div class="flex items-center mb-8 w-full">
+                            <div class="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mr-4 shrink-0">
+                                <i data-feather="cpu" class="text-blue-600"></i>
+                            </div>
+                            <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm flex-grow">
+                                <h3 class="font-semibold text-gray-800">AI Model</h3>
+                                <p class="text-gray-600">Random Forest classifier analyzes the quantities and determines match status</p>
+                            </div>
+                            <div class="ml-4 text-gray-400 shrink-0">
+                                <i data-feather="arrow-right" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 4 -->
+                        <div class="flex items-center w-full">
+                            <div class="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mr-4 shrink-0">
+                                <i data-feather="check-circle" class="text-blue-600"></i>
+                            </div>
+                            <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm flex-grow">
+                                <h3 class="font-semibold text-gray-800">Result</h3>
+                                <p class="text-gray-600">System returns MATCH or MISMATCH with confidence percentage</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md overflow-hidden p-6">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Technical Details</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-2">Model Architecture</h3>
+                        <ul class="list-disc pl-5 text-gray-600">
+                            <li class="mb-1">Random Forest Classifier</li>
+                            <li class="mb-1">Trained on synthetic procurement data</li>
+                            <li class="mb-1">Accuracy: 92% on test set</li>
+                            <li>Precision: 89% for mismatch detection</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-2">Tech Stack</h3>
+                        <ul class="list-disc pl-5 text-gray-600">
+                            <li class="mb-1">Frontend: HTML, CSS, JavaScript</li>
+                            <li class="mb-1">Backend: Python Flask API</li>
+                            <li class="mb-1">Machine Learning: Scikit-learn</li>
+                            <li>Deployment: Docker, AWS</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 mt-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">ProcureMatch AI</h3>
+                    <p class="text-gray-400">Smart AI solution for procurement document verification.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-400 hover:text-white">Home</a>
+                        <a href="demo.html" class="block text-gray-400 hover:text-white">Demo</a>
+                        <a href="about.html" class="block text-gray-400 hover:text-white">Architecture</a>
+                        <a href="documentation.html" class="block text-gray-400 hover:text-white">Documentation</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <div class="space-y-2">
+                        <a href="#" class="block text-gray-400 hover:text-white">GitHub</a>
+                        <a href="#" class="block text-gray-400 hover:text-white">API Docs</a>
+                        <a href="#" class="block text-gray-400 hover:text-white">Case Studies</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-feather="twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-feather="github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-feather="linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ProcureMatch AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        // Mobile menu toggle
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuButton?.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
