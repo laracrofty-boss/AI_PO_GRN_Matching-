@@ -130,69 +130,101 @@
         const confidenceEl = document.getElementById('confidence');
         const resultCard = document.getElementById('result-card');
 
-        predictBtn.addEventListener('click', async function() {
-            const poQty = document.getElementById('po-qty').value;
-            const grnQty = document.getElementById('grn-qty').value;
-            const invoiceQty = document.getElementById('invoice-qty').value;
+predictBtn.addEventListener('click', async function() {
+    const poQty = document.getElementById('po-qty').value;
+    const grnQty = document.getElementById('grn-qty').value;
+    const invoiceQty = document.getElementById('invoice-qty').value;
 
-            if (!poQty || !grnQty || !invoiceQty) {
-                alert('Please fill in all quantity fields');
-                return;
-            }
+    // ===== Basic front-end validation =====
+    if (!poQty || !grnQty || !invoiceQty) {
+        const msg = "Please fill in all quantity fields.";
+        statusEl.textContent = msg;
+        statusEl.style.color = "red";
+        resultContainer.classList.remove('hidden');
+        alert(msg);
+        return;
+    }
 
-            predictBtn.disabled = true;
-            predictBtn.innerHTML = 'Predicting...';
+    if (isNaN(poQty) || isNaN(grnQty) || isNaN(invoiceQty)) {
+        const msg = "Please enter valid numbers for all quantities.";
+        statusEl.textContent = msg;
+        statusEl.style.color = "red";
+        resultContainer.classList.remove('hidden');
+        alert(msg);
+        return;
+    }
 
-            try {
-                const payload = {
-                    PO_Qty: parseInt(poQty),
-                    GRN_Qty: parseInt(grnQty),
-                    Invoice_Qty: parseInt(invoiceQty)
-                };
+    // ===== Quick front-end match check =====
+    if (parseInt(invoiceQty) === parseInt(grnQty)) {
+        const msg = "✔ Quantities Match (Invoice = GRN)";
+        statusEl.textContent = msg;
+        statusEl.style.color = "green";
+        resultContainer.classList.remove('hidden');
+        alert(msg);
+    } else {
+        const msg = "✘ Quantities DO NOT Match";
+        statusEl.textContent = msg;
+        statusEl.style.color = "red";
+        resultContainer.classList.remove('hidden');
+        alert(msg);
+    }
 
-      const response = await fetch("https://ai-po-grn-matching-tnuk.onrender.com/predict", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    // ===== Proceed with backend API call =====
+    predictBtn.disabled = true;
+    predictBtn.innerHTML = 'Predicting...';
+
+    try {
+        const payload = {
+            PO_Qty: parseInt(poQty),
+            GRN_Qty: parseInt(grnQty),
+            Invoice_Qty: parseInt(invoiceQty)
+        };
+
+        const response = await fetch("https://ai-po-grn-matching-tnuk.onrender.com/predict", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        // Display API prediction
+        resultContainer.classList.remove('hidden');
+        if (data.status === 'MATCH') {
+            statusEl.textContent = 'MATCH';
+            statusEl.classList.add('text-green-600');
+            statusEl.classList.remove('text-red-600');
+            resultCard.classList.add('border-green-200', 'bg-green-50');
+            resultCard.classList.remove('border-red-200', 'bg-red-50');
+        } else {
+            statusEl.textContent = 'MISMATCH';
+            statusEl.classList.add('text-red-600');
+            statusEl.classList.remove('text-green-600');
+            resultCard.classList.add('border-red-200', 'bg-red-50');
+            resultCard.classList.remove('border-green-200', 'bg-green-50');
+        }
+        confidenceEl.textContent = `Confidence: ${(data.confidence * 100).toFixed(2)}%`;
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error connecting to the API');
+    } finally {
+        predictBtn.disabled = false;
+        predictBtn.innerHTML = 'Predict Match';
+    }
 });
 
+ // Clear button
+ clearBtn.addEventListener('click', function() {
+     document.getElementById('po-qty').value = '';
+     document.getElementById('grn-qty').value = '';
+     document.getElementById('invoice-qty').value = '';
+     resultContainer.classList.add('hidden');
+     statusEl.textContent = '';
+     confidenceEl.textContent = '';
+     statusEl.className = 'text-2xl font-bold mb-2';
+     resultCard.className = 'border rounded-lg p-6 text-center';
+ });
 
-                const data = await response.json();
-
-                resultContainer.classList.remove('hidden');
-                if (data.status === 'MATCH') {
-                    statusEl.textContent = 'MATCH';
-                    statusEl.classList.add('text-green-600');
-                    statusEl.classList.remove('text-red-600');
-                    resultCard.classList.add('border-green-200', 'bg-green-50');
-                    resultCard.classList.remove('border-red-200', 'bg-red-50');
-                } else {
-                    statusEl.textContent = 'MISMATCH';
-                    statusEl.classList.add('text-red-600');
-                    statusEl.classList.remove('text-green-600');
-                    resultCard.classList.add('border-red-200', 'bg-red-50');
-                    resultCard.classList.remove('border-green-200', 'bg-green-50');
-                }
-                confidenceEl.textContent = `Confidence: ${(data.confidence * 100).toFixed(2)}%`;
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error connecting to the API');
-            } finally {
-                predictBtn.disabled = false;
-                predictBtn.innerHTML = 'Predict Match';
-            }
-        });
-
-        clearBtn.addEventListener('click', function() {
-            document.getElementById('po-qty').value = '';
-            document.getElementById('grn-qty').value = '';
-            document.getElementById('invoice-qty').value = '';
-            resultContainer.classList.add('hidden');
-            statusEl.textContent = '';
-            confidenceEl.textContent = '';
-            statusEl.className = 'text-2xl font-bold mb-2';
-            resultCard.className = 'border rounded-lg p-6 text-center';
-        });
-    </script>
+</script>
 </body>
 </html>
