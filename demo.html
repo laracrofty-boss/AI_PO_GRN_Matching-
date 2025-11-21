@@ -150,7 +150,7 @@
                     Invoice_Qty: parseInt(invoiceQty)
                 };
 
-                const response = await fetch("https://AI_PO_GRN_Matching.onrender.com/predict", {
+      const response = await fetch("https://ai-po-grn-matching-tnuk.onrender.com/predict", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)

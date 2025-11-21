@@ -52,11 +52,12 @@ async function predictMatch() {
         Invoice_Qty: parseInt(document.getElementById("invoice").value)
     };
 
-    const response = await fetch("http://localhost:8000/predict", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(payload)
-    });
+ const response = await fetch("https://ai-po-grn-matching-tnuk.onrender.com/predict", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+});
+
 
     const data = await response.json();
 
